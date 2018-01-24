@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rock Paper Scissors Anyone?</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+
+    let playerScore = 0;
+    let computerScore = 0;
+
+    function playerPlay() {
+     let playerSelection = prompt("Rock, Paper, Scissors. What do you choose?");
+       if(playerSelection.toUpperCase() == "ROCK" || playerSelection.toUpperCase() == "PAPER" || playerSelection.toUpperCase() == "SCISSORS") {
+         return playerSelection.toUpperCase();
+       }
+      else {alert("there must be a typo somewhere. try again!?");
+            let playerSelection = prompt("Rock, Paper, Scissors. What do you choose?");
+            if(playerSelection.toUpperCase() == "ROCK" || playerSelection.toUpperCase() == "PAPER" || playerSelection.toUpperCase() == "SCISSORS") {
+              return playerSelection.toUpperCase();
+            }
+            else{ alert("too many typos! PUNISHMENT incoming");
+            playerPlay();
+
+          }
+          }
+    }
+    function computerPlay() {
+      let choices = [
+          "ROCK",
+          "PAPER",
+          "SCISSORS"
+        ];
+        let computerSelection = choices[Math.floor(Math.random()*choices.length)];
+        return computerSelection.toUpperCase();
+    }
+    function comparePlays(play1, play2) {
+      alert("you chose " + play1 + "! \ncomputer chose " + play2 + "!");
+      if(play1 == play2) {
+        alert("tie! go again.");
+        return 0;
+      }
+      if(
+        (play1 == "ROCK" && play2 == "SCISSORS")
+                           ||
+        (play1 == "PAPER" && play2 == "ROCK")
+                           ||
+        (play1 == "SCISSORS" && play2 == "PAPER"))
+        {
+       alert("you win the round!");
+        return "pwin";
+        }
+       alert("computer wins the round!");
+       return "cwin";
+    }
+    function updateScores(result, points) {
+        if(result == "pwin") {
+          playerScore += points;
+        }
+        if(result == "cwin") {
+          computerScore += points;
+        }
+        else {
+          computerScore += 0;
+          playerScore += 0;
+        }
+    }
+    function clearScores() {
+      playerScore = 0;
+      computerScore = 0;
+    }
+    function game(numOfRounds) {
+      do {
+        let player = playerPlay();
+        let computer = computerPlay();
+        let result = comparePlays(player, computer);
+        updateScores(result, 1);
+        if(result !== 0) {
+          numOfRounds--;
+        }
+      } while(numOfRounds > 0);
+          if(playerScore > computerScore) {
+            alert("you got " + playerScore + " points and the computer got " + computerScore + ". you win! refresh the page to try again.");
+          }
+          else {
+            alert("the computer got " + computerScore + " points and you got " + playerScore + ". the computer wins! refresh the page to try again.");
+          }
+      clearScores();
+    }
+  game(5)
+    </script>
+
+
+  </body>
+</html>
